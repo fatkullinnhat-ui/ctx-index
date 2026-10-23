@@ -3,4 +3,5 @@ Description=ctx-index periodic check (projects context usage + weekly snapshots)
 
 [Service]
 Type=oneshot
-ExecStart=/root/.pi/agent/ctx-watch.sh
+# 模板: 安装器会把 __CTX_WATCH_PATH__ 替换为实际的 ctx-watch.sh 绝对路径
+ExecStart=__CTX_WATCH_PATH__

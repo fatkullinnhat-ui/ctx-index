@@ -12,9 +12,10 @@ LOG="$PI/ctx-registry.log"
 touch "$LOG" 2>/dev/null || true
 NOW="$(date -u +%FT%TZ)"
 
-# 全局发现: conf 名单 ∪ 扫描 /root /home 下所有 .ctx(剪掉 node_modules/.git/.cache)
+# 全局发现: conf 名单 ∪ 扫描 .ctx(扫描根 CTX_SCAN_ROOTS 可覆盖, 默认 $HOME + /home; 剪掉 node_modules/.git/.cache)
+SCAN_ROOTS="${CTX_SCAN_ROOTS:-$HOME /home}"
 DISC="$(mktemp)"
-find /root /home -maxdepth 5 \( -name node_modules -o -name .git -o -name .cache \) -prune -o -type d -name .ctx -print 2>/dev/null | sed 's|/\.ctx$||' > "$DISC"
+find $SCAN_ROOTS -maxdepth 5 \( -name node_modules -o -name .git -o -name .cache \) -prune -o -type d -name .ctx -print 2>/dev/null | sed 's|/\.ctx$||' > "$DISC"
 { cat "$CONF" 2>/dev/null; cat "$DISC"; } | sort -u > "$DISC.u" && mv "$DISC.u" "$DISC"
 
 while read -r p; do

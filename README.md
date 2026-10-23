@@ -66,6 +66,10 @@ cd ctx-index
 bash us141/install-us141.sh    # PI_CODING_AGENT_DIR 可覆盖, 默认 $HOME/.pi/agent
 ```
 
+> 非 root 用户：安装器检测到无 systemd 系统级权限时，会打印一条现成的 crontab 命令（15 分钟巡检），
+> 复制执行即可。巡检扫描根默认 `$HOME` + `/home`，项目在别处时用环境变量覆盖：
+> `export CTX_SCAN_ROOTS="/srv/projects /data/work"`（写入 watch 的运行环境即可）。
+
 **项目启用（两条命令）：**
 
 ```bash
@@ -108,9 +112,12 @@ pi-purge（pi 指令权威性清洗）的补丁锚点宇宙是 pi 安装目录�
 
 ## 兼容性
 
-- pi `@earendil-works/pi-coding-agent` **1.4.0**（会话 JSONL v3，`~/.pi/agent/sessions/<munged-cwd>/`）
+- pi `@earendil-works/pi-coding-agent` **1.4.0**（会话 JSONL v3，`~/.pi/agent/sessions/<munged-cwd>/`；
+  扩展 API 与会话格式随 pi 大版本可能变化，届时按 repo 更新）
 - Node ≥ 18，零第三方依赖
-- Windows 10/11 + PowerShell 5.1+（计划任务 pi-ctx-watch）；Linux + systemd + tmux（可选，告警用）
+- Windows 10/11 + PowerShell 5.1+（计划任务 pi-ctx-watch）；Linux + systemd（root）或 cron（非 root）+ tmux（可选，告警用）
+- 窗口大小从 `~/.pi/agent/models.json` 读取；缺失时回退 131,072（占用百分比可能偏差，`--window` 可临时覆盖）
+- 引擎/看护的输出信息为中文；协议文件 SKILL.md 亦为中文——不影响任何功能，英文用户可自行改写文案
 
 ## 卸载
 
