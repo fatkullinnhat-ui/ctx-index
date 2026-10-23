@@ -202,7 +202,7 @@ function collectIssues() {
 
 // ---------- session 定位与解析 ----------
 // pi 会话目录命名: "--" + cwd把 [:\/] 换成"-" + "--"，实测吻合:
-//   C:\Users\Milk\Desktop\poj  ->  --C--Users-Milk-Desktop-poj--
+//   C:\Users\Me\Desktop\demo  ->  --C--Users-Me-Desktop-demo--   /home/me/demo -> --home-me-demo--
 // pi 实测命名: 内部分隔符→"-", 开头分隔符不产 dash(POSIX /root -> --root--), 点号保留, 前后包 "--"
 function munge(p) {
 	let s = String(p).replace(/[:\\\/]/g, "-");
