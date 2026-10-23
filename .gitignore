@@ -1,0 +1,3 @@
+*.tgz
+.ctx/
+node_modules/

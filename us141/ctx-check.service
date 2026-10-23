@@ -1,0 +1,6 @@
+[Unit]
+Description=ctx-index periodic check (projects context usage + weekly snapshots)
+
+[Service]
+Type=oneshot
+ExecStart=/root/.pi/agent/ctx-watch.sh
